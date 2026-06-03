@@ -1,0 +1,395 @@
+\<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon & Pastel Kafe Menyu</title>
+    <!-- Google Fonts-dan estetik şrift -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+            color: #ffffff;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu-wrapper {
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        /* Başlıq Hissəsi */
+        .menu-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .menu-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 10px 20px rgba(255, 65, 108, 0.3);
+        }
+
+        .menu-header p {
+            font-size: 14px;
+            color: #ddd;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-top: 10px;
+        }
+
+        /* Kartların Grid Sistemi */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        /* Hər bir Məhsul Kartı */
+        .food-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .food-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 65, 108, 0.25);
+            border-color: rgba(255, 65, 108, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Şəkil sahəsi və effektlər */
+        .image-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .food-card:hover .product-img {
+            transform: scale(1.15) rotate(1deg);
+        }
+
+        /* Kateqoriya Teqləri */
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .badge-sweet { background: #ff416c; }
+        .badge-fast { background: #ff9f43; }
+        .badge-drink { background: #0abde3; }
+        .badge-access { background: #9b59b6; }
+
+        /* Məhsul Məlumatları */
+        .card-details {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .sub-desc {
+            font-size: 11px;
+            color: #ff9f43;
+            background: rgba(255, 159, 67, 0.15);
+            padding: 2px 8px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        /* Qiymət Bölməsi */
+        .price-box {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stable-price {
+            color: #2ed573;
+            font-size: 20px;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(46, 213, 115, 0.4);
+        }
+
+        /* Cəlbedici Sifariş Düyməsi */
+        .order-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 10px 0;
+            width: 100%;
+            border-radius: 0 0 20px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .food-card:hover .order-btn {
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        }
+
+        /* Mobilə uyğunlaşma */
+        @media (max-width: 600px) {
+            .menu-header h1 { font-size: 30px; }
+            .menu-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-wrapper">
+    <div class="menu-header">
+        <h1>Günün Xüsusi Menyusu</h1>
+        <p>Dadın və Modanın Görüşdüyü Məkan</p>
+    </div>
+    
+    <div class="menu-grid">
+        
+        <!-- Şirniyyatlar -->
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-sweet">Şirniyyat</span>
+                <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&q=80" alt="Eton mess" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Eton Mess</h3>
+                <div class="price-box">
+                    <span class="stable-price">7 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-sweet">Şirniyyat</span>
+                <img src="https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?w=400&q=80" alt="Trifle" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Trifle</h3>
+                <div class="price-box">
+                    <span class="stable-price">6 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-sweet">Şirniyyat</span>
+                <img src="https://images.unsplash.com/photo-1519869325930-281384150729?w=400&q=80" alt="Apple pie" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Apple Pie</h3>
+                <div class="price-box">
+                    <span class="stable-price">5 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-sweet">Şirniyyat</span>
+                <img src="https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=400&q=80" alt="Pudding" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Pudding</h3>
+                <div class="price-box">
+                    <span class="stable-price">3 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-sweet">Şirniyyat</span>
+                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&q=80" alt="Cookie" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Kökə (Cookie)</h3>
+                <div class="price-box">
+                    <span class="stable-price">2 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-sweet">Şirniyyat</span>
+                <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&q=80" alt="Banoffee pie" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Banoffee Pie</h3>
+                <div class="price-box">
+                    <span class="stable-price">5 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <!-- Fast Food / Sendviçlər -->
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-fast">Fast Food</span>
+                <img src="https://images.unsplash.com/photo-1509722747041-616f39b57569?w=400&q=80" alt="Sendviç" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Xüsusi Sendviç</h3>
+                <span class="sub-desc">Bütöv Porsiya</span>
+                <div class="price-box">
+                    <span class="stable-price">5 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-fast">Fast Food</span>
+                <img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=400&q=80" alt="Sendviç yarım" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Xüsusi Sendviç</h3>
+                <span class="sub-desc">Yarım Porsiya</span>
+                <div class="price-box">
+                    <span class="stable-price">3 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <!-- İçkilər -->
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-drink">İçki</span>
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&q=80" alt="Su və limunad" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Su və Limunad</h3>
+                <div class="price-box">
+                    <span class="stable-price">1 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-drink">İçki</span>
+                <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=400&q=80" alt="Qara çay" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Qara Çay + Lovita</h3>
+                <div class="price-box">
+                    <span class="stable-price">1 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <!-- Aksesuar & Digər premium əşyalar -->
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-access">Aksesuar</span>
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" alt="İçi bədəli" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">İçi Bədəli Qolbaq</h3>
+                <div class="price-box">
+                    <span class="stable-price">6 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-access">Aksesuar</span>
+                <img src="https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8b1?w=400&q=80" alt="Qalın qolbaq" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Eleqant Qalın Qolbaq</h3>
+                <div class="price-box">
+                    <span class="stable-price">2 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+        <!-- YENİLƏNMİŞ XƏTTAT KARTI -->
+        <div class="food-card">
+            <div class="image-container">
+                <span class="badge badge-access">Sənət</span>
+                <!-- Bura estetik yazı/xəttatlıq şəkli əlavə olundu -->
+                <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=400&q=80" alt="Xəttatlıq sənəti" class="product-img">
+            </div>
+            <div class="card-details">
+                <h3 class="product-title">Xəttatlıq Əsəri</h3>
+                <div class="price-box">
+                    <span class="stable-price">1 AZN</span>
+                </div>
+            </div>
+            <button class="order-btn">Sifariş Et</button>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
